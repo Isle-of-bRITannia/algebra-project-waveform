@@ -7,7 +7,8 @@ class Sinesoidal{
     //amp
     //freq
     //skew
-    //formula = amp * sine(freqx + (sinx/skew))
+    //formula = amp * sine(freqx + shift + skew)
+    //skew = (sinx/skew)
 }
 class Rect{
     //amp

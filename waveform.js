@@ -14,7 +14,7 @@ class CombinedWave extends Wave{
     }
 }
 class SynthesizeWave extends Wave{
-    constructor(...waves){
+    constructor(waves){
         super();
         this.waves = waves;
     }
@@ -22,10 +22,10 @@ class SynthesizeWave extends Wave{
     formula(x){
         let value = 0;
         let counter = 0;
-        this.waves.forEach(wave => {
-            value += wave.formula(x);
+        for(let i = 0; i < this.waves.length; i++){
+            value+= this.waves[i].formula(x);
             counter++;
-        });
+        }
         return (value/counter);
     }
 }

@@ -1,9 +1,16 @@
 import * as canvas from "./canvas.js";
 import { Wave } from './waveApi.js';
-let myWave = Wave.saw(1,20);
-let myNewWave = Wave.combine(myWave,Wave.sinesoidal(1,1))
-let myAmpedWave = Wave.amplify(myNewWave, 2);
+import * as audio from "./audio.js";
+let myWave = Wave.sinesoidal(1,1);
+let myNewWave = Wave.combine(myWave, Wave.sinesoidal(3,2));
 //window.onload(() => {
     //console.log('loaded');
-    canvas.drawWave(myAmpedWave);
+    canvas.drawWave(myNewWave);
 //});
+const mySound = new Float32Array(audio.sampleWave(220,myNewWave));
+const playButton = document.getElementById("playButton");
+
+playButton.onclick = () => {
+    
+    audio.playSound({array: mySound,samplerate: 44100});
+};

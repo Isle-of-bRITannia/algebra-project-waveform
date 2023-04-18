@@ -1,7 +1,7 @@
 let canvas = document.getElementById('myCanvas');
 let ctx = canvas.getContext("2d");
 
-const drawWave = (wave = {formula: (x) => 1}) => {
+const drawWave = (wave) => {
     let canvasWidth = canvas.width;
     let canvasHeight = canvas.height;
     ctx.lineWidth = 1;

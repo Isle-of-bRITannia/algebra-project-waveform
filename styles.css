@@ -1,0 +1,11 @@
+#myCanvas{
+    height: 100px;
+    width: 100vw;
+}
+
+.input{
+    display: flex;
+    flex-flow: column;
+    gap: 0px;
+    width: 300px;
+}

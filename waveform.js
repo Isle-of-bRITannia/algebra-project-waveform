@@ -1,15 +1,76 @@
 class Wave{
 
 }
-
+//Combines 2 waves 
 class CombinedWave extends Wave{
     constructor(left,right){
+        super();
         this.left = left;
         this.right = right;
     };
-    //formula to return
+    //retuns normalized amplitude result from 2 waves
     formula(x){
         return((this.left.formula(x) + this.right.formula(x))/2);
+    }
+}
+class SynthesizeWave extends Wave{
+    constructor(...waves){
+        super();
+        this.waves = waves;
+    }
+
+    formula(x){
+        let value = 0;
+        let counter = 0;
+        this.waves.forEach(wave => {
+            value += wave.formula(x);
+            counter++;
+        });
+        return (value/counter);
+    }
+}
+
+class ClampWave extends Wave{
+    constructor(wave,clampVal) {
+        super();
+        this.wave = wave;
+        this.clampVal = clampVal;
+    }
+    //clips wave between clampval and -clampval
+    formula(x) {
+        return Math.min(Math.max(this.wave.formula(x),this.clampVal),-this.clampVal);
+    }
+}
+class InverseWave extends Wave{
+    constructor(wave) {
+        super();
+        this.wave = wave;
+    }
+    //inverses wave vertically
+    formula(x) {
+        return -1 * this.wave.formula(x);
+    }
+}
+class Amped extends Wave {
+    constructor(wave,amp) {
+        super();
+        this.amp = amp;
+        this.wave = wave;
+    }
+    //amplifys wave by x = amp
+    formula(x) {
+        return this.amp * this.wave.formula(x);
+    }
+}
+class Shifted extends Wave {
+    constructor(wave, shift) {
+        super();
+        this.shift = shift;
+        this.wave = wave;
+    }
+    //shifts contained wave by x = shift
+    formula(x) {
+        return this.wave.formula(x + this.shift);
     }
 }
 
@@ -19,112 +80,55 @@ class Sinesoidal extends Wave{
         this.period = period;
         this.skew = skew;
     };
-    set period(x){this.period = x};
-    set skew(x){this.skew = x};
-    //amp
     //freq
     //skew (should be between 1 and 10)
     //formula = amp * sine(freqx + shift + skew)
-    //skew = (sinx/skew)
+    //skew = (sinx/skewNum)
     formula(x){
-        return Math.sin((Math.PI*2*(x+ shift) )/this.period + (Math.sin(Math.PI*2*(x+ shift))/skew))
-    }
-}
-// normalized wave
-// class NormWave extends Wave{
-//     constructor(wave){
-//         super();
-//         this.wave();
-//     }
-//     formula(x) {
-//         return this.wave.formula(x);
-//     }
-// }
-
-//cutoff wave
-class ClampWave extends Wave{
-    constructor(wave) {
-        super();
-        this.wave = wave;
-    }
-    formula(x) {
-        return Math.min(Math.max(this.wave.formula(x),1),-1) ;
-    }
-}
-//inverse
-class InverseWave extends Wave{
-    constructor(wave) {
-        super();
-        this.wave = wave;
-    }
-    formula(x) {
-        return -1 * this.wave.formula(x);
-    }
-}
-//function for each held data
-class Amped extends Wave {
-    constructor(amp, wave) {
-        super();
-        this.amp = amp;
-        this.wave = wave;
-    }
-    formula(x) {
-        return amp * this.wave.formula(x);
-    }
-}
-class Shifted extends Wave {
-    constructor(shift, wave) {
-        super();
-        this.shift = shift;
-        this.wave = wave;
-    }
-    formula(x) {
-        return this.wave.formula(x + this.shift);
+        return Math.sin((Math.PI*2*(x) )/this.period + (Math.sin(Math.PI*2*(x))/this.skew))
     }
 }
 
 class Rect extends Wave{
     constructor(period,ratio){
+        super();
         this.period = period;
         this.ratio = ratio;
     };
-    //amp
     //freq
     //ratio
     //y = amp when remainder(x/freq > ratio) && -amp when remainder(x/freq < ratio)
     formula(x){
-        return Math.sign(x%period + ratio - 1);
+        return Math.sign(x%this.period + this.ratio - 1);
     }
 }
 
 
 class Triangle extends Wave{
     constructor(period,skew){
+        super();
         this.period = period;
         this.skew = skew;
     };
-
-//amplitude
 //freq
 //skew
-
 //y = amp * arcsin(sine(freqx + (sinx/skew)))
 formula(x){
-    return (2/Math.PI)* Math.asin(Math.sin((Math.PI*2*(x) )/this.period + (Math.sin(Math.PI*2*(x))/skew)));
+    return (2/Math.PI)* Math.asin(Math.sin((Math.PI*2*(x) )/this.period + (Math.sin(Math.PI*2*(x))/this.skew)));
 }
 }
 
 
 class Saw extends Wave{
     constructor(period,skew){
+        super()
         this.period = period;
         this.skew = skew;
     };
-    //amp
-    //freq
     //2(x/freq - floor(.5 + x/freq))
     formula(x){
-        return((x/period -Math.floor(.5 + x/period) ))
+        return((x/this.period -Math.floor(.5 + x/this.period) ))
     }
 }
 
+export {Wave, CombinedWave, SynthesizeWave, ClampWave, InverseWave, Amped, Shifted, Sinesoidal, Rect, Triangle, Saw}

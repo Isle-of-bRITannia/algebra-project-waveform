@@ -3,14 +3,15 @@ let ctx = canvas.getContext("2d");
 
 const drawWave = (wave = {formula: (x) => 1}) => {
     let canvasWidth = canvas.width;
-
-    for(const xPos = 0; xPos < canvasWidth; xPos++){
-        let yPos = wave.formula(xPos);
-        ctx.beginPath();
-        ctx.moveTo(xPos, yPos);
-        ctx.lineTo(xPos + 1, yPos + 1);
-        ctx.stroke();
-    }
+    let canvasHeight = canvas.height;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, canvasHeight/2 + wave.formula(0));
+    for(let xPos = 0; xPos < canvasWidth; xPos+= .1){
+        let yPos = wave.formula(xPos/250);     
+        ctx.lineTo(xPos,canvasHeight/2 + yPos*250);
+    }    
+    ctx.stroke();
 }
 
 export{

@@ -9,7 +9,7 @@ class Wave{
     }
 }
 
-class Sinesoidal{
+class Sinesoidal extends Wave{
     constructor(amp,period,skew, shift){
         this.amp = amp;
         this.period = period;
@@ -25,7 +25,7 @@ class Sinesoidal{
         return amp* Math.sin((Math.PI*2*(x+ shift) )/this.period + (Math.sin(Math.PI*2*(x+ shift))/skew))
     }
 }
-class Rect{
+class Rect extends Wave{
     constructor(amp,period,ratio){
         this.amp = amp;
         this.period = period;
@@ -39,7 +39,7 @@ class Rect{
         return amp* Math.sign(x%period + ratio - 1);
     }
 }
-class Triangle{
+class Triangle extends Wave{
     constructor(amp,period,skew, shift){
         this.amp = amp;
         this.period = period;
@@ -55,7 +55,7 @@ formula(x){
     return ((2/Math.PI) * amp * Math.asin(Math.sin((Math.PI*2*(x+ shift) )/this.period + (Math.sin(Math.PI*2*(x+ shift))/skew))));
 }
 }
-class Saw{
+class Saw extends Wave{
     constructor(amp,period,skew, shift){
         this.amp = amp;
         this.period = period;

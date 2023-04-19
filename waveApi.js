@@ -8,7 +8,7 @@ const WaveAPI = {
     amplify: (wave, ampVal) => new Amped(wave,ampVal),
     shift: (wave, shiftVal) => new Shifted(wave,shiftVal),    
     sinesoidal: (period,skew) => new Sinesoidal(period,skew),
-    rectangle: (period,ratio) => new Rect(period,ratio),
+    rectangle: (period,skew) => new Rect(period,skew),
     triangle: (period,skew) => new Triangle(period,skew),
     saw: (period,skew) => new Saw(period,skew),
     

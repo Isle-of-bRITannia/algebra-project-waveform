@@ -90,16 +90,16 @@ class Sinesoidal extends Wave{
 }
 
 class Rect extends Wave{
-    constructor(period,ratio){
+    constructor(period,skew){
         super();
         this.period = period;
-        this.ratio = ratio;
+        this.skew = skew;
     };
     //freq
     //ratio
     //y = amp when remainder(x/freq > ratio) && -amp when remainder(x/freq < ratio)
     formula(x){
-        return Math.sign(x%this.period + this.ratio - 1);
+        return Math.sign(x%this.period + (this.period/this.skew - this.period));
     }
 }
 

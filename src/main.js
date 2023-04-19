@@ -4,7 +4,7 @@ import * as audio from "./audio/audio.js";
 let waves = [];
 waves[0] = Wave.sinesoidal(1,1);
 waves[1] = Wave.combine(Wave.sinesoidal(1,1), Wave.sinesoidal(8,2));
-let myNewWave = Wave.sinesoidal(1,10);//Wave.synthesize(waves);
+let myNewWave = Wave.triangle(1,1);//Wave.synthesize(waves);
 //window.onload(() => {
     //console.log('loaded');
     canvas.drawWave(myNewWave);

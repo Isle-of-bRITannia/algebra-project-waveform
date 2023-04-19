@@ -1,18 +1,7 @@
 class Wave{
 
 }
-//Combines 2 waves 
-class CombinedWave extends Wave{
-    constructor(left,right){
-        super();
-        this.left = left;
-        this.right = right;
-    };
-    //retuns normalized amplitude result from 2 waves
-    formula(x){
-        return((this.left.formula(x) + this.right.formula(x))/2);
-    }
-}
+//Combines 2 waves X
 class SynthesizeWave extends Wave{
     constructor(waves){
         super();
@@ -131,4 +120,4 @@ class Saw extends Wave{
     }
 }
 
-export {Wave, CombinedWave, SynthesizeWave, ClampWave, InverseWave, Amped, Shifted, Sinesoidal, Rect, Triangle, Saw}
+export {Wave, SynthesizeWave, ClampWave, InverseWave, Amped, Shifted, Sinesoidal, Rect, Triangle, Saw}

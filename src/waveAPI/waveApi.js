@@ -1,7 +1,6 @@
-import {Wave, CombinedWave, SynthesizeWave, ClampWave, InverseWave, Amped, Shifted, Sinesoidal, Rect, Triangle, Saw} from './waveform.js'
+import {Wave, SynthesizeWave, ClampWave, InverseWave, Amped, Shifted, Sinesoidal, Rect, Triangle, Saw} from './waveform.js'
 
 const WaveAPI = {
-    combine: (wave1,wave2) => new CombinedWave(wave1,wave2),
     synthesize: (...waves) => new SynthesizeWave(...waves),
     clamp: (wave, clampVal) => new ClampWave(wave,clampVal),
     invert: (wave) => new InverseWave(wave),

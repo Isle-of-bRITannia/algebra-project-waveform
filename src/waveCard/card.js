@@ -4,7 +4,43 @@ const template = document.createElement("template");
 template.innerHTML = `
     <div class="box">
         <h1></h1>
+
         <button></button>
+
+        <label for="waveType">WaveType</label>
+        <select name="waveType" id="cars">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+        </select>
+
+        <span class="input">
+            <p>Invert</p>
+            <input type="checkbox">
+        </span>
+
+        <span class="input">
+            <p>Amplitude</p>
+            <input type="range">
+        </span>
+
+        <span class="input">
+            <p>Period</p>
+            <input type="range">
+        </span>
+
+        <span class="input">
+            <p>Skew</p>
+            <input type="range">
+        </span>
+
+        <span class="input">
+            <p>Shift</p>
+            <input type="range">
+        </span>
+
+
     </div>
 `;
 

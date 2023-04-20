@@ -2,14 +2,11 @@ import * as canvas from './canvas/canvas.js';
 import { Wave } from './waveAPI/waveApi.js';
 import * as audio from './audio/audio.js';
 import * as card from './waveCard/card.js';
-let waves = [];
 let myFinishedWave;
-waves[0] = Wave.sinesoidal(1, 1);
-waves[1] = Wave.synthesize([Wave.sinesoidal(1, 1), Wave.sinesoidal(8, 2)]);
 
 //window.onload(() => {
 //console.log('loaded');
-//canvas.drawWave(myNewWave);
+//canvas.drawWave(Wave.shift(Wave.amplify(Wave.sinesoidal(1,1),3.6),.5));
 //});
 
 let mySound;
@@ -18,13 +15,59 @@ const synthesizeButton = document.getElementById("synthButton");
 const newButton = document.getElementById("newButton");
 
 playButton.onclick = () => {
-    mySound = new Float32Array(audio.sampleWave(220, myNewWave));
-    audio.playSound({ array: mySound, samplerate: 44100 });
+    if(myFinishedWave != null){
+        mySound = new Float32Array(audio.sampleWave(110, myFinishedWave));
+        audio.playSound({ array: mySound, samplerate: 44100 });
+    }
 };
 
 synthesizeButton.onclick = () => {
+    let waves = [];
     // collect the info from each wave card in the waves array
+    const waveData = document.querySelectorAll('wave-card');
+    waveData.forEach(dataPoint => {
+        let waveFromData;
+        let waveContainer;
+        console.log(dataPoint);
+        if (dataPoint.dataset.waveType == "sine") {
+            waveFromData = Wave.shift(
+                Wave.amplify(
+                    Wave.sinesoidal(dataPoint.dataset.period,dataPoint.dataset.skew), 
+                    dataPoint.dataset.amplitude),
+                parseFloat(dataPoint.dataset.shift));
+        } else if (dataPoint.dataset.waveType == "rect") {
+            waveFromData = Wave.shift(
+                Wave.amplify(
+                    Wave.rectangle(dataPoint.dataset.period,dataPoint.dataset.skew), 
+                    dataPoint.dataset.amplitude),
+                    parseFloat(dataPoint.dataset.shift));
+        }
+        else if (dataPoint.dataset.waveType == "tri") {
+            waveFromData = Wave.shift(
+                Wave.amplify(
+                    Wave.triangle(dataPoint.dataset.period,dataPoint.dataset.skew), 
+                    dataPoint.dataset.amplitude),
+                    parseFloat(dataPoint.dataset.shift));
+        }
+        else if (dataPoint.dataset.waveType == "saw") {
+            waveFromData = Wave.shift(
+                Wave.amplify(
+                    Wave.saw(dataPoint.dataset.period,dataPoint.dataset.skew), 
+                    dataPoint.dataset.amplitude),
+                    parseFloat(dataPoint.dataset.shift));
+        }
+        console.log(dataPoint.dataset);
+        if(dataPoint.dataset.invert === "true"){waveFromData = Wave.invert(waveFromData)}
+        if(dataPoint.dataset.clamp === "true"){waveFromData = Wave.clamp(waveFromData, dataPoint.dataset.clampVal)}
+        console.log(waveFromData);
+        waves.push(waveFromData);
+    });
+    
+    canvas.clear();
+
     myFinishedWave = Wave.synthesize(waves);
+    
+    canvas.drawWave(myFinishedWave);
 }
 
 newButton.onclick = () => {
@@ -43,5 +86,6 @@ function createCard() {
     newCard.dataset.clampVal = 1;
     newCard.dataset.invert = false;
     newCard.dataset.select = false;
+    
     return newCard;
 }

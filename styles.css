@@ -13,4 +13,10 @@
 
 .box {
     border: 1px solid black;
+    width: min-content;
+}
+
+.container {
+    display: grid;
+    grid-template-columns:repeat(6,1fr)
 }

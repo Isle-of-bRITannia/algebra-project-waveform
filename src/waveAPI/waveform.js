@@ -27,7 +27,7 @@ class ClampWave extends Wave{
     }
     //clips wave between clampval and -clampval
     formula(x) {
-        return Math.min(Math.max(this.wave.formula(x),this.clampVal),-this.clampVal);
+        return Math.max(Math.min(this.wave.formula(x),this.clampVal),-this.clampVal);
     }
 }
 class InverseWave extends Wave{
@@ -37,7 +37,7 @@ class InverseWave extends Wave{
     }
     //inverses wave vertically
     formula(x) {
-        return -1 * this.wave.formula(x);
+        return this.wave.formula(-x);
     }
 }
 class Amped extends Wave {
@@ -74,7 +74,7 @@ class Sinesoidal extends Wave{
     //formula = amp * sine(freqx + shift + skew)
     //skew = (sinx/skewNum)
     formula(x){
-        return Math.sin((Math.PI*2*(x) )/this.period + (Math.sin(Math.PI*2*(x))/this.skew))
+        return Math.sin((Math.PI*2*(x) )/this.period + (Math.sin(Math.PI*2*(x))/(this.period * this.skew)))
     }
 }
 
@@ -88,7 +88,7 @@ class Rect extends Wave{
     //ratio
     //y = amp when remainder(x/freq > ratio) && -amp when remainder(x/freq < ratio)
     formula(x){
-        return Math.sign(x%this.period + (this.period/this.skew - this.period));
+        return Math.sign(x%this.period + (this.period * (this.skew/100) - this.period));
     }
 }
 

@@ -28,37 +28,27 @@ template.innerHTML = `
 
         <span class="input">
             <p>Clamp Value</p>
-            <input id="clamp-range" type="range">
-        </span>
-
-        <span class="input">
-            <p>Clamp</p>
-            <input type="checkbox">
-        </span>
-
-        <span class="input">
-            <p>Clamp Value</p>
-            <input type="range">
+            <input id="clamp-range" type="range" min="0" max="5" step=".1">
         </span>
 
         <span class="input">
             <p>Amplitude</p>
-            <input id="amplitude" type="range">
+            <input id="amplitude" type="range" min="-2" max="2" step=".1">
         </span>
 
         <span class="input">
             <p>Period</p>
-            <input id="period" type="range">
+            <input id="period" type="range" min=".1" max="10" step=".1">
         </span>
 
         <span class="input">
             <p>Skew</p>
-            <input id="skew" type="range">
+            <input id="skew" type="range" min="1" max="100" >
         </span>
 
         <span class="input">
             <p>Shift</p>
-            <input id="shift" type="range">
+            <input id="shift" type="range" min="0" max="5" step = ".1">
         </span>
 
     </div>
@@ -70,7 +60,6 @@ class Card extends HTMLElement {
         super();
         this.attachShadow({ mode: "open" });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
-        // this.h1 = this.shadowRoot.querySelector("h1");
         this.removeButton = this.shadowRoot.querySelector("button");
         this.waveType = this.shadowRoot.querySelector("#waves");
         this.invert = this.shadowRoot.querySelector("#invert");
@@ -80,7 +69,6 @@ class Card extends HTMLElement {
         this.period = this.shadowRoot.querySelector("#period");
         this.skew = this.shadowRoot.querySelector("#skew");
         this.shift = this.shadowRoot.querySelector("#shift");
-
     }
 
     connectedCallback() {
@@ -112,6 +100,11 @@ class Card extends HTMLElement {
         this.shift.onclick = () => {
             this.setAttribute('data-shift', this.shift.value);
         }
+        this.period.value = 1;
+        this.skew.value = 10;
+        this.amplitude.value = 1;
+        this.shift.value = 0;
+        this.clampRange.value = 1;
         this.render();
     }
 
@@ -129,7 +122,6 @@ class Card extends HTMLElement {
 
 
     render() {
-        // this.h1.innerHTML = `${exercise}`;
     }
 
 }

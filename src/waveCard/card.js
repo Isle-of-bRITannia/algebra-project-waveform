@@ -32,6 +32,16 @@ template.innerHTML = `
         </span>
 
         <span class="input">
+            <p>Clamp</p>
+            <input type="checkbox">
+        </span>
+
+        <span class="input">
+            <p>Clamp Value</p>
+            <input type="range">
+        </span>
+
+        <span class="input">
             <p>Amplitude</p>
             <input id="amplitude" type="range">
         </span>

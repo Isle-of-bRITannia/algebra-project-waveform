@@ -3,21 +3,35 @@ const template = document.createElement("template");
 
 template.innerHTML = `
     <div class="box">
-        <h1></h1>
+        <button>Remove</button>
 
-        <button></button>
+        <span class="input">
+            <p>Select</p>
+            <input type="checkbox">
+        </span>
+
 
         <label for="waveType">WaveType</label>
         <select name="waveType" id="cars">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
+            <option value="sine">Sinesoidal</option>
+            <option value="rect">Rectangle</option>
+            <option value="tri">Triangle</option>
+            <option value="saw">Sawtooth</option>
         </select>
 
         <span class="input">
             <p>Invert</p>
             <input type="checkbox">
+        </span>
+
+        <span class="input">
+            <p>Clamp</p>
+            <input type="checkbox">
+        </span>
+
+        <span class="input">
+            <p>Clamp Value</p>
+            <input type="range">
         </span>
 
         <span class="input">

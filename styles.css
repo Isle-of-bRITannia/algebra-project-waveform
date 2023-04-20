@@ -1,12 +1,16 @@
-#myCanvas{
+#myCanvas {
     height: 800px;
     width: 100%;
-    border:black 3px solid
+    border: black 3px solid
 }
 
-.input{
+.input {
     display: flex;
     flex-flow: column;
     gap: 0px;
     width: 300px;
+}
+
+.box {
+    border: 1px solid black;
 }
